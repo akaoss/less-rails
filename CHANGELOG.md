@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 2.8.1.1 - 2017-04-20
+
+* Avoid Sprockets deprecations (fix tests)
+
 ### 2.8.1 - 2016-11-11
 
 * Avoid Sprockets deprecations

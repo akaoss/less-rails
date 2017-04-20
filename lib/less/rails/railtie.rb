@@ -16,18 +16,14 @@ module Less
       end
 
       initializer 'less-rails.before.load_config_initializers', :before => :load_config_initializers, :group => :all do |app|
-        sprockets_env = app.assets || Sprockets
-
         config.assets.configure do |env|
-          if env.respond_to?(:register_transformer)
-            env.register_mime_type 'text/less', extensions: ['.less'], charset: :css
-            env.register_transformer 'text/less', 'text/css', ImportProcessor
-          end
-
           if env.respond_to?(:register_engine)
             args = ['.less', LessTemplate]
-            args << {mime_type: 'text/less', silence_deprecation: true } if Sprockets::VERSION.start_with?("3")
+            args << { mime_type: 'text/less', silence_deprecation: true } if Sprockets::VERSION.start_with?("3")
             env.register_engine(*args)
+          elsif env.respond_to?(:register_transformer)
+            env.register_mime_type 'text/less', extensions: ['.less'], charset: :css
+            env.register_preprocessor 'text/less', ImportProcessor
           end
 
           env.context_class.class_eval do

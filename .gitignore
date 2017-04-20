@@ -6,3 +6,4 @@ pkg/*
 tmp/*
 test/dummy_app/tmp/cache/assets/*
 gemfiles/*.gemfile
+.idea
